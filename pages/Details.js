@@ -111,7 +111,7 @@ function Details({ navigation }) {
             />
             <Button
               mode="contained"
-              onPress={handleSubmit}
+              onPress={() => navigation.navigate('Profit')}
               loading={isSubmitting}
               disabled={isSubmitting}
               style={styles.button}

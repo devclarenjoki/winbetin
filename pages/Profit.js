@@ -1,11 +1,38 @@
 import React, { useState } from "react";
 import DropdownComponent from "./DropdownComponent";
-import { ActivityIndicator, Button, Text } from "react-native-paper";
+import {
+  ActivityIndicator,
+  Button,
+  Modal,
+  Portal,
+  Text,
+} from "react-native-paper";
 import { View, StyleSheet, FlatList } from "react-native";
 
-export default function Profit({navigation}) {
+export default function Profit({ navigation }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [visible, setVisible] = React.useState(false);
+  const [count, setCount] = React.useState(0);
 
+  const showModal = () => {
+    setVisible(true);
+    setCount(0);
+  };
+  const hideModal = () => {
+    setVisible(false);
+    setCount(0);
+  };
+  React.useEffect(() => {
+    let interval;
+    if (visible) {
+      interval = setInterval(() => {
+        setCount((prevCount) => prevCount + 1);
+      }, 1000);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [visible]);
   const handleSubmit = () => {
     // Simulating an asynchronous operation
     setIsSubmitting(true);
@@ -20,7 +47,7 @@ export default function Profit({navigation}) {
 
   const handleLogout = () => {
     navigation.navigate("Details");
-  }
+  };
 
   const renderRow = (rowData) => {
     return (
@@ -79,7 +106,7 @@ export default function Profit({navigation}) {
         <>
           <Button
             mode="contained"
-            onPress={handleSubmit}
+            onPress={showModal}
             loading={isSubmitting}
             disabled={isSubmitting}
             style={styles.button}
@@ -93,13 +120,24 @@ export default function Profit({navigation}) {
 
           <Button
             mode="contained"
-            onPress={() => navigation.navigate}
+            onPress={() => navigation?.navigate("Details")}
             // loading={isSubmitting}
             disabled={isSubmitting}
             style={styles.button}
           >
             Logout
           </Button>
+          <Portal>
+            <Modal
+              visible={visible}
+              onDismiss={hideModal}
+              contentContainerStyle={{ backgroundColor: "white", padding: 20 }}
+            >
+              <Text>Calculating Profit...don't cancel!</Text>
+              <Text>{count}</Text>
+              <Button onPress={hideModal}>Close</Button>
+            </Modal>
+          </Portal>
         </>
       )}
     />
