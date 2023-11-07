@@ -4,15 +4,6 @@ import { Button, TextInput, DefaultTheme } from "react-native-paper";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-const validationSchema = Yup.object().shape({
-  phoneNumber: Yup.string()
-    .required("Phone number is required")
-    .matches(/^[0-9]{10}$/, "Phone number is not valid"),
-  password: Yup.string()
-    .required("Password is required")
-    .min(8, "Password is too short - should be 8 chars minimum"),
-  accessCode: Yup.string().required("Access code is required"),
-});
 
 const styles = StyleSheet.create({
   fullWidth: {
@@ -29,6 +20,15 @@ const styles = StyleSheet.create({
 });
 
 function Details({ navigation }) {
+  const validationSchema = Yup.object().shape({
+    phoneNumber: Yup.string()
+      .required("Phone number is required")
+      .matches(/^[0-9]{10}$/, "Phone number is not valid"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(8, "Password is too short - should be 8 chars minimum"),
+    accessCode: Yup.string().required("Access code is required"),
+  });
   const handleSubmit = (values, actions) => {
     setTimeout(() => {
       console.log(values);

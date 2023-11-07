@@ -11,7 +11,8 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <PaperProvider>
-      <NavigationContainer>
+      <Profit/>
+      {/* <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Details"
           screenOptions={{
@@ -21,7 +22,7 @@ export default function App() {
           <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="Profit" component={Profit} />
         </Stack.Navigator>
-      </NavigationContainer>
+      </NavigationContainer> */}
     </PaperProvider>
   );
 }
