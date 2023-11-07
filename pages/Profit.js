@@ -93,7 +93,7 @@ export default function Profit({navigation}) {
 
           <Button
             mode="contained"
-            onPress={handleLogout}
+            onPress={() => navigation.navigate}
             // loading={isSubmitting}
             disabled={isSubmitting}
             style={styles.button}
@@ -114,6 +114,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 30,
+  },
+  labelText: {
+    zIndex: -1, // Ensure the text is behind the dropdown
+  },
+  dropdownContainer: {
+    flex: 1,
+    zIndex: 2, // Ensure the dropdown is in front of the text
   },
   button: {
     width: "100%",
